@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { CharacterData } from '../types/character';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Download, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -12,11 +13,46 @@ interface JsonPanelProps {
 const JsonPanel = ({ characterData }: JsonPanelProps) => {
   const [isFormatted, setIsFormatted] = useState(true);
   const [showTypes, setShowTypes] = useState(true);
+  const [activeTab, setActiveTab] = useState('apariencia');
   const { toast } = useToast();
 
-  const jsonString = isFormatted 
-    ? JSON.stringify(characterData, null, 2)
-    : JSON.stringify(characterData);
+  const getJsonSection = (section: string) => {
+    let sectionData;
+    
+    switch(section) {
+      case 'apariencia':
+        sectionData = {
+          apariencia: characterData.apariencia
+        };
+        break;
+      case 'vestimenta':
+        sectionData = {
+          vestimenta: characterData.vestimenta
+        };
+        break;
+      case 'accesorios':
+        sectionData = {
+          accesorios: characterData.accesorios
+        };
+        break;
+      case 'especial':
+        sectionData = {
+          caracteristicas_especiales: characterData.caracteristicas_especiales,
+          estadisticas_juego: characterData.estadisticas_juego
+        };
+        break;
+      case 'resumen':
+      default:
+        sectionData = characterData;
+        break;
+    }
+
+    return isFormatted 
+      ? JSON.stringify(sectionData, null, 2)
+      : JSON.stringify(sectionData);
+  };
+
+  const jsonString = getJsonSection(activeTab);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(jsonString);
@@ -31,7 +67,10 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `personaje-${characterData.nombre.replace(/\s+/g, '-')}.json`;
+    const fileName = activeTab === 'resumen' 
+      ? `personaje-${characterData.nombre.replace(/\s+/g, '-')}-completo.json`
+      : `personaje-${characterData.nombre.replace(/\s+/g, '-')}-${activeTab}.json`;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -110,7 +149,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
           </div>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-3">
           <Button
             size="sm"
             variant={isFormatted ? "default" : "outline"}
@@ -130,16 +169,76 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
         </div>
       </div>
 
-      {/* JSON Content */}
-      <div className="flex-1 json-panel p-4 overflow-auto rounded-b-xl">
-        <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-          <pre className="text-sm font-mono leading-relaxed">
-            {showTypes && isFormatted ? getJsonWithTypes() : (
-              <code className="text-gray-300">{jsonString}</code>
-            )}
-          </pre>
-        </div>
-      </div>
+      {/* Tabs */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
+        <TabsList className="grid w-full grid-cols-5 bg-blue-500">
+          <TabsTrigger value="apariencia" className="text-xs">👤 Apariencia</TabsTrigger>
+          <TabsTrigger value="vestimenta" className="text-xs">👕 Vestimenta</TabsTrigger>
+          <TabsTrigger value="accesorios" className="text-xs">💍 Accesorios</TabsTrigger>
+          <TabsTrigger value="especial" className="text-xs">⭐ Especial</TabsTrigger>
+          <TabsTrigger value="resumen" className="text-xs">📋 Resumen</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="apariencia" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="vestimenta" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="accesorios" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="especial" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="resumen" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
 
       {/* Info Panel */}
       <div className="bg-gray-100 p-3 rounded-b-xl border-t-2 border-blue-400">
