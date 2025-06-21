@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { CharacterData } from '../types/character';
 import { Button } from '@/components/ui/button';
@@ -8,12 +7,13 @@ import { useToast } from '@/hooks/use-toast';
 
 interface JsonPanelProps {
   characterData: CharacterData;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-const JsonPanel = ({ characterData }: JsonPanelProps) => {
+const JsonPanel = ({ characterData, activeTab, setActiveTab }: JsonPanelProps) => {
   const [isFormatted, setIsFormatted] = useState(true);
   const [showTypes, setShowTypes] = useState(true);
-  const [activeTab, setActiveTab] = useState('basico');
   const { toast } = useToast();
 
   const getJsonSection = (section: string) => {
@@ -189,67 +189,8 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
           <TabsTrigger value="resumen" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">📄 Resumen</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="basico" className="flex-1 m-0">
-          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
-            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-                {showTypes && isFormatted ? getJsonWithTypes() : (
-                  <code className="text-gray-300">{jsonString}</code>
-                )}
-              </pre>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="apariencia" className="flex-1 m-0">
-          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
-            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-                {showTypes && isFormatted ? getJsonWithTypes() : (
-                  <code className="text-gray-300">{jsonString}</code>
-                )}
-              </pre>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="vestimenta" className="flex-1 m-0">
-          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
-            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-                {showTypes && isFormatted ? getJsonWithTypes() : (
-                  <code className="text-gray-300">{jsonString}</code>
-                )}
-              </pre>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="accesorios" className="flex-1 m-0">
-          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
-            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-                {showTypes && isFormatted ? getJsonWithTypes() : (
-                  <code className="text-gray-300">{jsonString}</code>
-                )}
-              </pre>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="especial" className="flex-1 m-0">
-          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
-            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-                {showTypes && isFormatted ? getJsonWithTypes() : (
-                  <code className="text-gray-300">{jsonString}</code>
-                )}
-              </pre>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="resumen" className="flex-1 m-0">
+        {/* Single TabsContent that updates based on activeTab */}
+        <TabsContent value={activeTab} className="flex-1 m-0">
           <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
             <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
               <pre className="text-sm font-mono leading-relaxed">

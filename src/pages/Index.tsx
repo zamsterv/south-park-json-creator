@@ -1,10 +1,11 @@
-
 import { useState } from 'react';
 import CharacterCreator from '../components/CharacterCreator';
 import JsonPanel from '../components/JsonPanel';
 import { CharacterData } from '../types/character';
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState('basico');
+  
   const [characterData, setCharacterData] = useState<CharacterData>({
     // Datos básicos
     id: Math.floor(Math.random() * 10000),
@@ -223,13 +224,19 @@ const Index = () => {
           <div className="bg-white/90 backdrop-blur rounded-xl shadow-2xl p-6 border-4 border-orange-400">
             <CharacterCreator 
               characterData={characterData} 
-              setCharacterData={setCharacterData} 
+              setCharacterData={setCharacterData}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
           </div>
 
           {/* JSON Panel */}
           <div className="bg-gray-900 rounded-xl shadow-2xl border-4 border-blue-400">
-            <JsonPanel characterData={characterData} />
+            <JsonPanel 
+              characterData={characterData} 
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
           </div>
         </div>
 
