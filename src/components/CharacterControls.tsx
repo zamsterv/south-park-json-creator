@@ -54,15 +54,15 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <Label htmlFor="name">Nombre del Personaje</Label>
               <Input
                 id="name"
-                value={characterData.name}
-                onChange={(e) => updateData('name', e.target.value)}
+                value={characterData.nombre}
+                onChange={(e) => updateData('nombre', e.target.value)}
                 className="mt-1"
               />
             </div>
 
             <div>
               <Label>Género</Label>
-              <Select value={characterData.personal_info.gender} onValueChange={(value) => updateData('personal_info.gender', value)}>
+              <Select value={characterData.informacion_personal.genero} onValueChange={(value) => updateData('informacion_personal.genero', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -78,8 +78,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <Label>Edad (opcional)</Label>
               <Input
                 type="number"
-                value={characterData.personal_info.age || ''}
-                onChange={(e) => updateData('personal_info.age', e.target.value ? parseInt(e.target.value) : null)}
+                value={characterData.informacion_personal.edad || ''}
+                onChange={(e) => updateData('informacion_personal.edad', e.target.value ? parseInt(e.target.value) : null)}
                 className="mt-1"
               />
             </div>
@@ -88,8 +88,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <Label htmlFor="catchphrase">Frase Característica</Label>
               <Input
                 id="catchphrase"
-                value={characterData.personal_info.catchphrase}
-                onChange={(e) => updateData('personal_info.catchphrase', e.target.value)}
+                value={characterData.informacion_personal.frase_caracteristica}
+                onChange={(e) => updateData('informacion_personal.frase_caracteristica', e.target.value)}
                 placeholder="¡Oh, Dios mío! ¡Mataron a Kenny!"
                 className="mt-1"
               />
@@ -98,18 +98,18 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="is_student"
-                checked={characterData.personal_info.is_student}
-                onCheckedChange={(checked) => updateData('personal_info.is_student', checked)}
+                checked={characterData.informacion_personal.es_estudiante}
+                onCheckedChange={(checked) => updateData('informacion_personal.es_estudiante', checked)}
               />
               <Label htmlFor="is_student">¿Es estudiante?</Label>
             </div>
 
-            {characterData.personal_info.is_student && (
+            {characterData.informacion_personal.es_estudiante && (
               <div>
-                <Label>Grado Escolar: {characterData.personal_info.grade_level}</Label>
+                <Label>Grado Escolar: {characterData.informacion_personal.grado_escolar}</Label>
                 <Slider
-                  value={[characterData.personal_info.grade_level]}
-                  onValueChange={(value) => updateData('personal_info.grade_level', value[0])}
+                  value={[characterData.informacion_personal.grado_escolar]}
+                  onValueChange={(value) => updateData('informacion_personal.grado_escolar', value[0])}
                   max={12}
                   min={1}
                   step={1}
@@ -130,7 +130,7 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
           <CardContent className="space-y-4">
             <div>
               <Label>Estilo de Cabello</Label>
-              <Select value={characterData.appearance.hair.style} onValueChange={(value) => updateData('appearance.hair.style', value)}>
+              <Select value={characterData.apariencia.cabello.estilo} onValueChange={(value) => updateData('apariencia.cabello.estilo', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -150,8 +150,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.appearance.hair.color === color ? "default" : "outline"}
-                    onClick={() => updateData('appearance.hair.color', color)}
+                    variant={characterData.apariencia.cabello.color === color ? "default" : "outline"}
+                    onClick={() => updateData('apariencia.cabello.color', color)}
                   />
                 ))}
               </div>
@@ -159,7 +159,7 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
 
             <div>
               <Label>Longitud</Label>
-              <Select value={characterData.appearance.hair.length} onValueChange={(value) => updateData('appearance.hair.length', value)}>
+              <Select value={characterData.apariencia.cabello.longitud} onValueChange={(value) => updateData('apariencia.cabello.longitud', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -187,8 +187,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.appearance.face.skin_color === color ? "default" : "outline"}
-                    onClick={() => updateData('appearance.face.skin_color', color)}
+                    variant={characterData.apariencia.rostro.color_piel === color ? "default" : "outline"}
+                    onClick={() => updateData('apariencia.rostro.color_piel', color)}
                   />
                 ))}
               </div>
@@ -202,8 +202,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.appearance.face.eyes.color === color ? "default" : "outline"}
-                    onClick={() => updateData('appearance.face.eyes.color', color)}
+                    variant={characterData.apariencia.rostro.ojos.color === color ? "default" : "outline"}
+                    onClick={() => updateData('apariencia.rostro.ojos.color', color)}
                   />
                 ))}
               </div>
@@ -213,8 +213,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="has_freckles"
-                  checked={characterData.appearance.face.facial_features.has_freckles}
-                  onCheckedChange={(checked) => updateData('appearance.face.facial_features.has_freckles', checked)}
+                  checked={characterData.apariencia.rostro.caracteristicas_faciales.tiene_pecas}
+                  onCheckedChange={(checked) => updateData('apariencia.rostro.caracteristicas_faciales.tiene_pecas', checked)}
                 />
                 <Label htmlFor="has_freckles">Pecas</Label>
               </div>
@@ -222,8 +222,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="has_dimples"
-                  checked={characterData.appearance.face.facial_features.has_dimples}
-                  onCheckedChange={(checked) => updateData('appearance.face.facial_features.has_dimples', checked)}
+                  checked={characterData.apariencia.rostro.caracteristicas_faciales.tiene_hoyuelos}
+                  onCheckedChange={(checked) => updateData('apariencia.rostro.caracteristicas_faciales.tiene_hoyuelos', checked)}
                 />
                 <Label htmlFor="has_dimples">Hoyuelos</Label>
               </div>
@@ -231,8 +231,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="has_braces"
-                  checked={characterData.appearance.face.mouth.has_braces}
-                  onCheckedChange={(checked) => updateData('appearance.face.mouth.has_braces', checked)}
+                  checked={characterData.apariencia.rostro.boca.tiene_frenos}
+                  onCheckedChange={(checked) => updateData('apariencia.rostro.boca.tiene_frenos', checked)}
                 />
                 <Label htmlFor="has_braces">Frenos</Label>
               </div>
@@ -240,8 +240,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="has_makeup"
-                  checked={characterData.appearance.face.facial_features.has_makeup}
-                  onCheckedChange={(checked) => updateData('appearance.face.facial_features.has_makeup', checked)}
+                  checked={characterData.apariencia.rostro.caracteristicas_faciales.tiene_maquillaje}
+                  onCheckedChange={(checked) => updateData('apariencia.rostro.caracteristicas_faciales.tiene_maquillaje', checked)}
                 />
                 <Label htmlFor="has_makeup">Maquillaje</Label>
               </div>
@@ -259,7 +259,7 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
           <CardContent className="space-y-4">
             <div>
               <Label>Tipo de Prenda</Label>
-              <Select value={characterData.clothing.top.type} onValueChange={(value) => updateData('clothing.top.type', value)}>
+              <Select value={characterData.vestimenta.parte_superior.tipo} onValueChange={(value) => updateData('vestimenta.parte_superior.tipo', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -284,8 +284,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.clothing.top.color === color ? "default" : "outline"}
-                    onClick={() => updateData('clothing.top.color', color)}
+                    variant={characterData.vestimenta.parte_superior.color === color ? "default" : "outline"}
+                    onClick={() => updateData('vestimenta.parte_superior.color', color)}
                   />
                 ))}
               </div>
@@ -294,19 +294,19 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_logo"
-                checked={characterData.clothing.top.has_logo}
-                onCheckedChange={(checked) => updateData('clothing.top.has_logo', checked)}
+                checked={characterData.vestimenta.parte_superior.tiene_logo}
+                onCheckedChange={(checked) => updateData('vestimenta.parte_superior.tiene_logo', checked)}
               />
               <Label htmlFor="has_logo">¿Tiene logo?</Label>
             </div>
 
-            {characterData.clothing.top.has_logo && (
+            {characterData.vestimenta.parte_superior.tiene_logo && (
               <div>
                 <Label htmlFor="logo_text">Texto del Logo</Label>
                 <Input
                   id="logo_text"
-                  value={characterData.clothing.top.logo_text}
-                  onChange={(e) => updateData('clothing.top.logo_text', e.target.value)}
+                  value={characterData.vestimenta.parte_superior.texto_logo}
+                  onChange={(e) => updateData('vestimenta.parte_superior.texto_logo', e.target.value)}
                   placeholder="SP"
                   className="mt-1"
                 />
@@ -322,7 +322,7 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
           <CardContent className="space-y-4">
             <div>
               <Label>Tipo de Prenda</Label>
-              <Select value={characterData.clothing.bottom.type} onValueChange={(value) => updateData('clothing.bottom.type', value)}>
+              <Select value={characterData.vestimenta.parte_inferior.tipo} onValueChange={(value) => updateData('vestimenta.parte_inferior.tipo', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -345,8 +345,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.clothing.bottom.color === color ? "default" : "outline"}
-                    onClick={() => updateData('clothing.bottom.color', color)}
+                    variant={characterData.vestimenta.parte_inferior.color === color ? "default" : "outline"}
+                    onClick={() => updateData('vestimenta.parte_inferior.color', color)}
                   />
                 ))}
               </div>
@@ -355,8 +355,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_belt"
-                checked={characterData.clothing.bottom.has_belt}
-                onCheckedChange={(checked) => updateData('clothing.bottom.has_belt', checked)}
+                checked={characterData.vestimenta.parte_inferior.tiene_cinturon}
+                onCheckedChange={(checked) => updateData('vestimenta.parte_inferior.tiene_cinturon', checked)}
               />
               <Label htmlFor="has_belt">¿Tiene cinturón?</Label>
             </div>
@@ -370,7 +370,7 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
           <CardContent className="space-y-4">
             <div>
               <Label>Tipo de Zapatos</Label>
-              <Select value={characterData.clothing.shoes.type} onValueChange={(value) => updateData('clothing.shoes.type', value)}>
+              <Select value={characterData.vestimenta.zapatos.tipo} onValueChange={(value) => updateData('vestimenta.zapatos.tipo', value)}>
                 <SelectTrigger className="mt-1">
                   <SelectValue />
                 </SelectTrigger>
@@ -393,8 +393,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                     key={color}
                     className="w-12 h-12 rounded-full border-2"
                     style={{ backgroundColor: color }}
-                    variant={characterData.clothing.shoes.color === color ? "default" : "outline"}
-                    onClick={() => updateData('clothing.shoes.color', color)}
+                    variant={characterData.vestimenta.zapatos.color === color ? "default" : "outline"}
+                    onClick={() => updateData('vestimenta.zapatos.color', color)}
                   />
                 ))}
               </div>
@@ -403,8 +403,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_laces"
-                checked={characterData.clothing.shoes.has_laces}
-                onCheckedChange={(checked) => updateData('clothing.shoes.has_laces', checked)}
+                checked={characterData.vestimenta.zapatos.tiene_cordones}
+                onCheckedChange={(checked) => updateData('vestimenta.zapatos.tiene_cordones', checked)}
               />
               <Label htmlFor="has_laces">¿Tiene cordones?</Label>
             </div>
@@ -422,28 +422,28 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_hat"
-                checked={characterData.accessories.head_accessories.hat.has_hat}
+                checked={characterData.accesorios.accesorios_cabeza.sombrero.tiene_sombrero}
                 onCheckedChange={(checked) => {
-                  updateData('accessories.head_accessories.hat.has_hat', checked);
+                  updateData('accesorios.accesorios_cabeza.sombrero.tiene_sombrero', checked);
                   if (checked) {
-                    updateData('accessories.head_accessories.hat.type', 'gorra');
-                    updateData('accessories.head_accessories.hat.color', '#FF0000');
+                    updateData('accesorios.accesorios_cabeza.sombrero.tipo', 'gorra');
+                    updateData('accesorios.accesorios_cabeza.sombrero.color', '#FF0000');
                   } else {
-                    updateData('accessories.head_accessories.hat.type', null);
-                    updateData('accessories.head_accessories.hat.color', null);
+                    updateData('accesorios.accesorios_cabeza.sombrero.tipo', null);
+                    updateData('accesorios.accesorios_cabeza.sombrero.color', null);
                   }
                 }}
               />
               <Label htmlFor="has_hat">¿Usa gorro/sombrero?</Label>
             </div>
 
-            {characterData.accessories.head_accessories.hat.has_hat && (
+            {characterData.accesorios.accesorios_cabeza.sombrero.tiene_sombrero && (
               <>
                 <div>
                   <Label>Tipo de Gorro</Label>
                   <Select 
-                    value={characterData.accessories.head_accessories.hat.type || ''} 
-                    onValueChange={(value) => updateData('accessories.head_accessories.hat.type', value)}
+                    value={characterData.accesorios.accesorios_cabeza.sombrero.tipo || ''} 
+                    onValueChange={(value) => updateData('accesorios.accesorios_cabeza.sombrero.tipo', value)}
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue />
@@ -466,8 +466,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
                         key={color}
                         className="w-12 h-12 rounded-full border-2"
                         style={{ backgroundColor: color }}
-                        variant={characterData.accessories.head_accessories.hat.color === color ? "default" : "outline"}
-                        onClick={() => updateData('accessories.head_accessories.hat.color', color)}
+                        variant={characterData.accesorios.accesorios_cabeza.sombrero.color === color ? "default" : "outline"}
+                        onClick={() => updateData('accesorios.accesorios_cabeza.sombrero.color', color)}
                       />
                     ))}
                   </div>
@@ -478,27 +478,27 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_glasses"
-                checked={characterData.accessories.head_accessories.glasses.has_glasses}
+                checked={characterData.accesorios.accesorios_cabeza.lentes.tiene_lentes}
                 onCheckedChange={(checked) => {
-                  updateData('accessories.head_accessories.glasses.has_glasses', checked);
+                  updateData('accesorios.accesorios_cabeza.lentes.tiene_lentes', checked);
                   if (checked) {
-                    updateData('accessories.head_accessories.glasses.type', 'normales');
-                    updateData('accessories.head_accessories.glasses.color', '#000000');
+                    updateData('accesorios.accesorios_cabeza.lentes.tipo', 'normales');
+                    updateData('accesorios.accesorios_cabeza.lentes.color', '#000000');
                   } else {
-                    updateData('accessories.head_accessories.glasses.type', null);
-                    updateData('accessories.head_accessories.glasses.color', null);
+                    updateData('accesorios.accesorios_cabeza.lentes.tipo', null);
+                    updateData('accesorios.accesorios_cabeza.lentes.color', null);
                   }
                 }}
               />
               <Label htmlFor="has_glasses">¿Usa lentes?</Label>
             </div>
 
-            {characterData.accessories.head_accessories.glasses.has_glasses && (
+            {characterData.accesorios.accesorios_cabeza.lentes.tiene_lentes && (
               <div>
                 <Label>Tipo de Lentes</Label>
                 <Select 
-                  value={characterData.accessories.head_accessories.glasses.type || ''} 
-                  onValueChange={(value) => updateData('accessories.head_accessories.glasses.type', value)}
+                  value={characterData.accesorios.accesorios_cabeza.lentes.tipo || ''} 
+                  onValueChange={(value) => updateData('accesorios.accesorios_cabeza.lentes.tipo', value)}
                 >
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -523,15 +523,15 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_necklace"
-                checked={characterData.accessories.body_accessories.necklace.has_necklace}
+                checked={characterData.accesorios.accesorios_cuerpo.collar.tiene_collar}
                 onCheckedChange={(checked) => {
-                  updateData('accessories.body_accessories.necklace.has_necklace', checked);
+                  updateData('accesorios.accesorios_cuerpo.collar.tiene_collar', checked);
                   if (checked) {
-                    updateData('accessories.body_accessories.necklace.type', 'cadena');
-                    updateData('accessories.body_accessories.necklace.material', 'oro');
+                    updateData('accesorios.accesorios_cuerpo.collar.tipo', 'cadena');
+                    updateData('accesorios.accesorios_cuerpo.collar.material', 'oro');
                   } else {
-                    updateData('accessories.body_accessories.necklace.type', null);
-                    updateData('accessories.body_accessories.necklace.material', null);
+                    updateData('accesorios.accesorios_cuerpo.collar.tipo', null);
+                    updateData('accesorios.accesorios_cuerpo.collar.material', null);
                   }
                 }}
               />
@@ -541,15 +541,15 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_watch"
-                checked={characterData.accessories.body_accessories.watch.has_watch}
+                checked={characterData.accesorios.accesorios_cuerpo.reloj.tiene_reloj}
                 onCheckedChange={(checked) => {
-                  updateData('accessories.body_accessories.watch.has_watch', checked);
+                  updateData('accesorios.accesorios_cuerpo.reloj.tiene_reloj', checked);
                   if (checked) {
-                    updateData('accessories.body_accessories.watch.type', 'digital');
-                    updateData('accessories.body_accessories.watch.color', '#000000');
+                    updateData('accesorios.accesorios_cuerpo.reloj.tipo', 'digital');
+                    updateData('accesorios.accesorios_cuerpo.reloj.color', '#000000');
                   } else {
-                    updateData('accessories.body_accessories.watch.type', null);
-                    updateData('accessories.body_accessories.watch.color', null);
+                    updateData('accesorios.accesorios_cuerpo.reloj.tipo', null);
+                    updateData('accesorios.accesorios_cuerpo.reloj.color', null);
                   }
                 }}
               />
@@ -559,27 +559,27 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="has_bracelet"
-                checked={characterData.accessories.body_accessories.bracelet.has_bracelet}
+                checked={characterData.accesorios.accesorios_cuerpo.pulsera.tiene_pulsera}
                 onCheckedChange={(checked) => {
-                  updateData('accessories.body_accessories.bracelet.has_bracelet', checked);
+                  updateData('accesorios.accesorios_cuerpo.pulsera.tiene_pulsera', checked);
                   if (checked) {
-                    updateData('accessories.body_accessories.bracelet.type', 'pulsera');
-                    updateData('accessories.body_accessories.bracelet.count', 1);
+                    updateData('accesorios.accesorios_cuerpo.pulsera.tipo', 'pulsera');
+                    updateData('accesorios.accesorios_cuerpo.pulsera.cantidad', 1);
                   } else {
-                    updateData('accessories.body_accessories.bracelet.type', null);
-                    updateData('accessories.body_accessories.bracelet.count', 0);
+                    updateData('accesorios.accesorios_cuerpo.pulsera.tipo', null);
+                    updateData('accesorios.accesorios_cuerpo.pulsera.cantidad', 0);
                   }
                 }}
               />
               <Label htmlFor="has_bracelet">¿Usa pulseras?</Label>
             </div>
 
-            {characterData.accessories.body_accessories.bracelet.has_bracelet && (
+            {characterData.accesorios.accesorios_cuerpo.pulsera.tiene_pulsera && (
               <div>
-                <Label>Número de Pulseras: {characterData.accessories.body_accessories.bracelet.count}</Label>
+                <Label>Número de Pulseras: {characterData.accesorios.accesorios_cuerpo.pulsera.cantidad}</Label>
                 <Slider
-                  value={[characterData.accessories.body_accessories.bracelet.count]}
-                  onValueChange={(value) => updateData('accessories.body_accessories.bracelet.count', value[0])}
+                  value={[characterData.accesorios.accesorios_cuerpo.pulsera.cantidad]}
+                  onValueChange={(value) => updateData('accesorios.accesorios_cuerpo.pulsera.cantidad', value[0])}
                   max={5}
                   min={1}
                   step={1}
@@ -601,30 +601,30 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="is_superhero"
-                checked={characterData.special_features.is_superhero}
+                checked={characterData.caracteristicas_especiales.es_superheroe}
                 onCheckedChange={(checked) => {
-                  updateData('special_features.is_superhero', checked);
+                  updateData('caracteristicas_especiales.es_superheroe', checked);
                   if (checked) {
-                    updateData('special_features.superhero_name', 'Super ' + characterData.name);
-                    updateData('special_features.has_powers', true);
-                    updateData('special_features.powers_list', ['volar', 'fuerza_super']);
+                    updateData('caracteristicas_especiales.nombre_superheroe', 'Super ' + characterData.nombre);
+                    updateData('caracteristicas_especiales.tiene_poderes', true);
+                    updateData('caracteristicas_especiales.lista_poderes', ['volar', 'fuerza_super']);
                   } else {
-                    updateData('special_features.superhero_name', null);
-                    updateData('special_features.has_powers', false);
-                    updateData('special_features.powers_list', []);
+                    updateData('caracteristicas_especiales.nombre_superheroe', null);
+                    updateData('caracteristicas_especiales.tiene_poderes', false);
+                    updateData('caracteristicas_especiales.lista_poderes', []);
                   }
                 }}
               />
               <Label htmlFor="is_superhero">¿Es un superhéroe?</Label>
             </div>
 
-            {characterData.special_features.is_superhero && (
+            {characterData.caracteristicas_especiales.es_superheroe && (
               <div>
                 <Label htmlFor="superhero_name">Nombre de Superhéroe</Label>
                 <Input
                   id="superhero_name"
-                  value={characterData.special_features.superhero_name || ''}
-                  onChange={(e) => updateData('special_features.superhero_name', e.target.value)}
+                  value={characterData.caracteristicas_especiales.nombre_superheroe || ''}
+                  onChange={(e) => updateData('caracteristicas_especiales.nombre_superheroe', e.target.value)}
                   className="mt-1"
                 />
               </div>
@@ -634,8 +634,8 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="is_alien"
-                  checked={characterData.special_features.is_alien}
-                  onCheckedChange={(checked) => updateData('special_features.is_alien', checked)}
+                  checked={characterData.caracteristicas_especiales.es_alienigena}
+                  onCheckedChange={(checked) => updateData('caracteristicas_especiales.es_alienigena', checked)}
                 />
                 <Label htmlFor="is_alien">¿Es alien?</Label>
               </div>
@@ -643,18 +643,18 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="is_robot"
-                  checked={characterData.special_features.is_robot}
-                  onCheckedChange={(checked) => updateData('special_features.is_robot', checked)}
+                  checked={characterData.caracteristicas_especiales.es_robot}
+                  onCheckedChange={(checked) => updateData('caracteristicas_especiales.es_robot', checked)}
                 />
                 <Label htmlFor="is_robot">¿Es robot?</Label>
               </div>
             </div>
 
             <div>
-              <Label>Transparencia: {Math.round(characterData.special_features.transparency_level * 100)}%</Label>
+              <Label>Transparencia: {Math.round(characterData.caracteristicas_especiales.nivel_transparencia * 100)}%</Label>
               <Slider
-                value={[characterData.special_features.transparency_level]}
-                onValueChange={(value) => updateData('special_features.transparency_level', value[0])}
+                value={[characterData.caracteristicas_especiales.nivel_transparencia]}
+                onValueChange={(value) => updateData('caracteristicas_especiales.nivel_transparencia', value[0])}
                 max={1}
                 min={0}
                 step={0.1}
@@ -670,10 +670,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label>Nivel: {characterData.game_stats.level}</Label>
+              <Label>Nivel: {characterData.estadisticas_juego.nivel}</Label>
               <Slider
-                value={[characterData.game_stats.level]}
-                onValueChange={(value) => updateData('game_stats.level', value[0])}
+                value={[characterData.estadisticas_juego.nivel]}
+                onValueChange={(value) => updateData('estadisticas_juego.nivel', value[0])}
                 max={99}
                 min={1}
                 step={1}
@@ -682,10 +682,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
             </div>
 
             <div>
-              <Label>Experiencia: {characterData.game_stats.experience_points}</Label>
+              <Label>Experiencia: {characterData.estadisticas_juego.puntos_experiencia}</Label>
               <Slider
-                value={[characterData.game_stats.experience_points]}
-                onValueChange={(value) => updateData('game_stats.experience_points', value[0])}
+                value={[characterData.estadisticas_juego.puntos_experiencia]}
+                onValueChange={(value) => updateData('estadisticas_juego.puntos_experiencia', value[0])}
                 max={10000}
                 min={0}
                 step={100}
@@ -695,10 +695,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Vida: {characterData.game_stats.health}</Label>
+                <Label>Vida: {characterData.estadisticas_juego.salud}</Label>
                 <Slider
-                  value={[characterData.game_stats.health]}
-                  onValueChange={(value) => updateData('game_stats.health', value[0])}
+                  value={[characterData.estadisticas_juego.salud]}
+                  onValueChange={(value) => updateData('estadisticas_juego.salud', value[0])}
                   max={100}
                   min={0}
                   step={5}
@@ -707,10 +707,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               </div>
 
               <div>
-                <Label>Energía: {characterData.game_stats.energy}</Label>
+                <Label>Energía: {characterData.estadisticas_juego.energia}</Label>
                 <Slider
-                  value={[characterData.game_stats.energy]}
-                  onValueChange={(value) => updateData('game_stats.energy', value[0])}
+                  value={[characterData.estadisticas_juego.energia]}
+                  onValueChange={(value) => updateData('estadisticas_juego.energia', value[0])}
                   max={100}
                   min={0}
                   step={5}
@@ -719,10 +719,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               </div>
 
               <div>
-                <Label>Felicidad: {characterData.game_stats.happiness}</Label>
+                <Label>Felicidad: {characterData.estadisticas_juego.felicidad}</Label>
                 <Slider
-                  value={[characterData.game_stats.happiness]}
-                  onValueChange={(value) => updateData('game_stats.happiness', value[0])}
+                  value={[characterData.estadisticas_juego.felicidad]}
+                  onValueChange={(value) => updateData('estadisticas_juego.felicidad', value[0])}
                   max={100}
                   min={0}
                   step={5}
@@ -731,10 +731,10 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
               </div>
 
               <div>
-                <Label>Popularidad: {characterData.game_stats.popularity}</Label>
+                <Label>Popularidad: {characterData.estadisticas_juego.popularidad}</Label>
                 <Slider
-                  value={[characterData.game_stats.popularity]}
-                  onValueChange={(value) => updateData('game_stats.popularity', value[0])}
+                  value={[characterData.estadisticas_juego.popularidad]}
+                  onValueChange={(value) => updateData('estadisticas_juego.popularidad', value[0])}
                   max={100}
                   min={0}
                   step={5}

@@ -6,11 +6,11 @@ interface CharacterDisplayProps {
 }
 
 const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
-  const { appearance, clothing, accessories, personal_info } = characterData;
+  const { apariencia, vestimenta, accesorios, informacion_personal } = characterData;
 
   // Estilos de cabello
   const getHairStyle = () => {
-    const style = appearance.hair.style;
+    const style = apariencia.cabello.estilo;
     const baseClass = "absolute -top-2 left-1/2 transform -translate-x-1/2 border-2 border-black";
     
     switch(style) {
@@ -37,7 +37,7 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
 
   // Forma de cara
   const getFaceShape = () => {
-    const shape = appearance.face.shape;
+    const shape = apariencia.rostro.forma;
     const baseClass = "border-4 border-black relative mx-auto";
     
     switch(shape) {
@@ -54,8 +54,8 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
 
   // Forma de ojos
   const getEyeStyle = (side: 'left' | 'right') => {
-    const eyeShape = appearance.face.eyes.shape;
-    const eyeSize = appearance.face.eyes.size;
+    const eyeShape = apariencia.rostro.ojos.forma;
+    const eyeSize = apariencia.rostro.ojos.tamaño;
     const position = side === 'left' ? 'left-6' : 'right-6';
     
     let sizeClass = 'w-4 h-4';
@@ -71,7 +71,7 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
 
   // Tipo de ropa superior
   const getTopStyle = () => {
-    const type = clothing.top.type;
+    const type = vestimenta.parte_superior.tipo;
     const baseClass = "mx-auto border-4 border-black";
     
     switch(type) {
@@ -92,7 +92,7 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
 
   // Tipo de ropa inferior
   const getBottomStyle = () => {
-    const type = clothing.bottom.type;
+    const type = vestimenta.parte_inferior.tipo;
     const baseClass = "mx-auto border-4 border-black";
     
     switch(type) {
@@ -111,7 +111,7 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
 
   // Tipo de zapatos
   const getShoeStyle = () => {
-    const type = clothing.shoes.type;
+    const type = vestimenta.zapatos.tipo;
     const baseClass = "border-2 border-black";
     
     switch(type) {
@@ -132,9 +132,9 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
     <div className="flex flex-col items-center justify-center min-h-[400px] relative">
       {/* Character Name */}
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-white/90 px-4 py-2 rounded-full border-2 border-orange-400 bounce-in">
-        <h3 className="font-bold text-orange-600">{characterData.name}</h3>
+        <h3 className="font-bold text-orange-600">{characterData.nombre}</h3>
         <p className="text-xs text-gray-600 text-center">
-          {personal_info.genero} | Nivel {characterData.estadisticas_juego.nivel}
+          {informacion_personal.genero} | Nivel {characterData.estadisticas_juego.nivel}
         </p>
       </div>
 
@@ -143,13 +143,13 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
         {/* Head */}
         <div 
           className={getFaceShape()}
-          style={{ backgroundColor: appearance.rostro.color_piel }}
+          style={{ backgroundColor: apariencia.rostro.color_piel }}
         >
           {/* Hair */}
-          {appearance.cabello.estilo !== 'calvo' && (
+          {apariencia.cabello.estilo !== 'calvo' && (
             <div 
               className={getHairStyle()}
-              style={{ backgroundColor: appearance.cabello.color }}
+              style={{ backgroundColor: apariencia.cabello.color }}
             />
           )}
           
@@ -157,13 +157,13 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
           <div className={getEyeStyle('left')}>
             <div 
               className="w-2 h-2 rounded-full absolute top-1 left-1"
-              style={{ backgroundColor: appearance.rostro.ojos.color }}
+              style={{ backgroundColor: apariencia.rostro.ojos.color }}
             />
           </div>
           <div className={getEyeStyle('right')}>
             <div 
               className="w-2 h-2 rounded-full absolute top-1 left-1"
-              style={{ backgroundColor: appearance.rostro.ojos.color }}
+              style={{ backgroundColor: apariencia.rostro.ojos.color }}
             />
           </div>
 
@@ -180,16 +180,16 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
           {/* Mouth */}
           <div 
             className="absolute top-16 left-1/2 transform -translate-x-1/2 w-6 h-3 rounded-full border-2 border-black"
-            style={{ backgroundColor: appearance.rostro.boca.color }}
+            style={{ backgroundColor: apariencia.rostro.boca.color }}
           />
           
           {/* Braces */}
-          {appearance.rostro.boca.tiene_frenos && (
+          {apariencia.rostro.boca.tiene_frenos && (
             <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-4 h-1 bg-silver border border-gray-600" />
           )}
 
           {/* Freckles */}
-          {appearance.rostro.caracteristicas_faciales.tiene_pecas && (
+          {apariencia.rostro.caracteristicas_faciales.tiene_pecas && (
             <>
               <div className="absolute top-10 left-8 w-1 h-1 bg-orange-400 rounded-full" />
               <div className="absolute top-11 left-10 w-1 h-1 bg-orange-400 rounded-full" />
@@ -212,23 +212,23 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
           {/* Torso */}
           <div 
             className={getTopStyle()}
-            style={{ backgroundColor: clothing.parte_superior.color }}
+            style={{ backgroundColor: vestimenta.parte_superior.color }}
           >
             {/* Logo or Pattern */}
-            {clothing.parte_superior.tiene_logo && (
+            {vestimenta.parte_superior.tiene_logo && (
               <div className="text-center pt-8 text-xs font-bold text-white">
-                {clothing.parte_superior.texto_logo}
+                {vestimenta.parte_superior.texto_logo}
               </div>
             )}
             
             {/* Pattern overlay */}
-            {clothing.parte_superior.patron !== 'solido' && (
+            {vestimenta.parte_superior.patron !== 'solido' && (
               <div className="absolute inset-0 opacity-30">
-                {clothing.parte_superior.patron === 'rayas' && (
+                {vestimenta.parte_superior.patron === 'rayas' && (
                   <div className="h-full w-full bg-gradient-to-r from-transparent via-white to-transparent bg-repeat" 
                        style={{backgroundSize: '4px 100%'}} />
                 )}
-                {clothing.parte_superior.patron === 'puntos' && (
+                {vestimenta.parte_superior.patron === 'puntos' && (
                   <div className="h-full w-full" 
                        style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '8px 8px'}} />
                 )}
@@ -239,21 +239,21 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
           {/* Arms */}
           <div 
             className="absolute top-2 -left-6 w-6 h-20 border-4 border-black rounded-full"
-            style={{ backgroundColor: clothing.parte_superior.color }}
+            style={{ backgroundColor: vestimenta.parte_superior.color }}
           />
           <div 
             className="absolute top-2 -right-6 w-6 h-20 border-4 border-black rounded-full"
-            style={{ backgroundColor: clothing.parte_superior.color }}
+            style={{ backgroundColor: vestimenta.parte_superior.color }}
           />
           
           {/* Hands */}
           <div 
             className="absolute top-16 -left-8 w-4 h-4 border-2 border-black rounded-full"
-            style={{ backgroundColor: appearance.rostro.color_piel }}
+            style={{ backgroundColor: apariencia.rostro.color_piel }}
           />
           <div 
             className="absolute top-16 -right-8 w-4 h-4 border-2 border-black rounded-full"
-            style={{ backgroundColor: appearance.rostro.color_piel }}
+            style={{ backgroundColor: apariencia.rostro.color_piel }}
           />
         </div>
 
@@ -261,11 +261,11 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
         <div className="relative mt-2">
           <div 
             className={getBottomStyle()}
-            style={{ backgroundColor: clothing.parte_inferior.color }}
+            style={{ backgroundColor: vestimenta.parte_inferior.color }}
           />
           
           {/* Belt */}
-          {clothing.parte_inferior.tiene_cinturon && (
+          {vestimenta.parte_inferior.tiene_cinturon && (
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-3 bg-brown-600 border border-black" />
           )}
         </div>
@@ -274,11 +274,11 @@ const CharacterDisplay = ({ characterData }: CharacterDisplayProps) => {
         <div className="relative mt-2 flex justify-center gap-4">
           <div 
             className={getShoeStyle()}
-            style={{ backgroundColor: clothing.zapatos.color }}
+            style={{ backgroundColor: vestimenta.zapatos.color }}
           />
           <div 
             className={getShoeStyle()}
-            style={{ backgroundColor: clothing.zapatos.color }}
+            style={{ backgroundColor: vestimenta.zapatos.color }}
           />
         </div>
 
