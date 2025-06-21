@@ -8,199 +8,199 @@ const Index = () => {
   const [characterData, setCharacterData] = useState<CharacterData>({
     // Datos básicos
     id: Math.floor(Math.random() * 10000),
-    name: "Mi Personaje",
-    created_at: new Date().toISOString(),
+    nombre: "Mi Personaje",
+    fecha_creacion: new Date().toISOString(),
     version: 1.0,
     
     // Información personal
-    personal_info: {
-      gender: "indefinido",
-      age: null,
-      personality_traits: [],
-      favorite_activities: [],
-      catchphrase: "",
-      is_student: true,
-      grade_level: 4
+    informacion_personal: {
+      genero: "indefinido",
+      edad: null,
+      rasgos_personalidad: [],
+      actividades_favoritas: [],
+      frase_caracteristica: "",
+      es_estudiante: true,
+      grado_escolar: 4
     },
 
     // Apariencia física
-    appearance: {
+    apariencia: {
       // Cabello
-      hair: {
-        style: "basico",
+      cabello: {
+        estilo: "basico",
         color: "#8B4513",
-        length: "corto",
-        has_accessories: false,
-        accessories: []
+        longitud: "corto",
+        tiene_accesorios: false,
+        accesorios: []
       },
       
       // Rostro
-      face: {
-        shape: "redondo",
-        skin_color: "#FFDBAC",
+      rostro: {
+        forma: "redondo",
+        color_piel: "#FFDBAC",
         
         // Ojos
-        eyes: {
+        ojos: {
           color: "#000000",
-          shape: "normal",
-          size: "mediano",
-          has_glasses: false,
-          glasses_type: null
+          forma: "normal",
+          tamaño: "mediano",
+          tiene_lentes: false,
+          tipo_lentes: null
         },
         
         // Boca
-        mouth: {
-          shape: "normal",
+        boca: {
+          forma: "normal",
           color: "#FF69B4",
-          expression: "sonrisa",
-          has_braces: false
+          expresion: "sonrisa",
+          tiene_frenos: false
         },
         
         // Nariz
-        nose: {
-          size: "pequena",
-          shape: "normal"
+        nariz: {
+          tamaño: "pequena",
+          forma: "normal"
         },
         
         // Extras faciales
-        facial_features: {
-          has_freckles: false,
-          has_dimples: false,
-          has_scars: false,
-          scars_count: 0,
-          has_makeup: false
+        caracteristicas_faciales: {
+          tiene_pecas: false,
+          tiene_hoyuelos: false,
+          tiene_cicatrices: false,
+          cantidad_cicatrices: 0,
+          tiene_maquillaje: false
         }
       },
       
       // Cuerpo
-      body: {
-        height: 120,
-        build: "normal",
-        skin_tone: "#FFDBAC"
+      cuerpo: {
+        altura: 120,
+        contextura: "normal",
+        tono_piel: "#FFDBAC"
       }
     },
 
     // Vestimenta
-    clothing: {
+    vestimenta: {
       // Parte superior
-      top: {
-        type: "camiseta",
+      parte_superior: {
+        tipo: "camiseta",
         color: "#FF0000",
-        pattern: "solido",
-        has_logo: false,
-        logo_text: "",
-        sleeve_length: "corta",
+        patron: "solido",
+        tiene_logo: false,
+        texto_logo: "",
+        longitud_manga: "corta",
         material: "algodon"
       },
       
       // Parte inferior
-      bottom: {
-        type: "pantalones",
+      parte_inferior: {
+        tipo: "pantalones",
         color: "#0000FF",
-        pattern: "solido",
-        length: "largo",
-        has_belt: false,
+        patron: "solido",
+        longitud: "largo",
+        tiene_cinturon: false,
         material: "mezclilla"
       },
       
       // Calzado
-      shoes: {
-        type: "tenis",
+      zapatos: {
+        tipo: "tenis",
         color: "#FFFFFF",
-        brand: "genericos",
-        has_laces: true,
-        lace_color: "#000000"
+        marca: "genericos",
+        tiene_cordones: true,
+        color_cordones: "#000000"
       },
       
       // Ropa interior/base
-      underwear: {
+      ropa_interior: {
         visible: true,
         color: "#FFFFFF",
-        type: "calzones"
+        tipo: "calzones"
       }
     },
 
     // Accesorios
-    accessories: {
+    accesorios: {
       // Cabeza
-      head_accessories: {
-        hat: {
-          has_hat: false,
-          type: null,
+      accesorios_cabeza: {
+        sombrero: {
+          tiene_sombrero: false,
+          tipo: null,
           color: null,
-          has_logo: false
+          tiene_logo: false
         },
         
-        glasses: {
-          has_glasses: false,
-          type: null,
+        lentes: {
+          tiene_lentes: false,
+          tipo: null,
           color: null,
-          prescription: false
+          con_receta: false
         },
         
-        earrings: {
-          has_earrings: false,
-          type: null,
-          count: 0
+        aretes: {
+          tiene_aretes: false,
+          tipo: null,
+          cantidad: 0
         }
       },
       
       // Cuerpo
-      body_accessories: {
-        necklace: {
-          has_necklace: false,
-          type: null,
+      accesorios_cuerpo: {
+        collar: {
+          tiene_collar: false,
+          tipo: null,
           material: null
         },
         
-        watch: {
-          has_watch: false,
-          type: null,
+        reloj: {
+          tiene_reloj: false,
+          tipo: null,
           color: null
         },
         
-        bracelet: {
-          has_bracelet: false,
-          type: null,
-          count: 0
+        pulsera: {
+          tiene_pulsera: false,
+          tipo: null,
+          cantidad: 0
         }
       },
       
       // Cintura
-      waist_accessories: {
-        belt: {
-          has_belt: false,
+      accesorios_cintura: {
+        cinturon: {
+          tiene_cinturon: false,
           color: null,
           material: null,
-          buckle_type: null
+          tipo_hebilla: null
         }
       },
       
       // Objetos que lleva
-      carried_items: []
+      objetos_que_lleva: []
     },
 
     // Configuraciones especiales
-    special_features: {
-      is_superhero: false,
-      superhero_name: null,
-      has_powers: false,
-      powers_list: [],
-      is_alien: false,
-      is_robot: false,
-      transparency_level: 1.0
+    caracteristicas_especiales: {
+      es_superheroe: false,
+      nombre_superheroe: null,
+      tiene_poderes: false,
+      lista_poderes: [],
+      es_alienigena: false,
+      es_robot: false,
+      nivel_transparencia: 1.0
     },
 
     // Estadísticas del juego
-    game_stats: {
-      level: 1,
-      experience_points: 0,
-      health: 100,
-      energy: 100,
-      happiness: 75,
-      popularity: 50,
-      unlocked_features: ["basic_clothing", "basic_hair"],
-      achievements: []
+    estadisticas_juego: {
+      nivel: 1,
+      puntos_experiencia: 0,
+      salud: 100,
+      energia: 100,
+      felicidad: 75,
+      popularidad: 50,
+      caracteristicas_desbloqueadas: ["ropa_basica", "cabello_basico"],
+      logros: []
     }
   });
 

@@ -2,183 +2,183 @@
 export interface CharacterData {
   // Datos básicos
   id: number;
-  name: string;
-  created_at: string;
+  nombre: string;
+  fecha_creacion: string;
   version: number;
   
   // Información personal
-  personal_info: {
-    gender: "hombre" | "mujer" | "indefinido";
-    age: number | null;
-    personality_traits: string[];
-    favorite_activities: string[];
-    catchphrase: string;
-    is_student: boolean;
-    grade_level: number;
+  informacion_personal: {
+    genero: "hombre" | "mujer" | "indefinido";
+    edad: number | null;
+    rasgos_personalidad: string[];
+    actividades_favoritas: string[];
+    frase_caracteristica: string;
+    es_estudiante: boolean;
+    grado_escolar: number;
   };
 
   // Apariencia física
-  appearance: {
-    hair: {
-      style: string;
+  apariencia: {
+    cabello: {
+      estilo: string;
       color: string;
-      length: string;
-      has_accessories: boolean;
-      accessories: string[];
+      longitud: string;
+      tiene_accesorios: boolean;
+      accesorios: string[];
     };
     
-    face: {
-      shape: string;
-      skin_color: string;
+    rostro: {
+      forma: string;
+      color_piel: string;
       
-      eyes: {
+      ojos: {
         color: string;
-        shape: string;
-        size: string;
-        has_glasses: boolean;
-        glasses_type: string | null;
+        forma: string;
+        tamaño: string;
+        tiene_lentes: boolean;
+        tipo_lentes: string | null;
       };
       
-      mouth: {
-        shape: string;
+      boca: {
+        forma: string;
         color: string;
-        expression: string;
-        has_braces: boolean;
+        expresion: string;
+        tiene_frenos: boolean;
       };
       
-      nose: {
-        size: string;
-        shape: string;
+      nariz: {
+        tamaño: string;
+        forma: string;
       };
       
-      facial_features: {
-        has_freckles: boolean;
-        has_dimples: boolean;
-        has_scars: boolean;
-        scars_count: number;
-        has_makeup: boolean;
+      caracteristicas_faciales: {
+        tiene_pecas: boolean;
+        tiene_hoyuelos: boolean;
+        tiene_cicatrices: boolean;
+        cantidad_cicatrices: number;
+        tiene_maquillaje: boolean;
       };
     };
     
-    body: {
-      height: number;
-      build: string;
-      skin_tone: string;
+    cuerpo: {
+      altura: number;
+      contextura: string;
+      tono_piel: string;
     };
   };
 
   // Vestimenta
-  clothing: {
-    top: {
-      type: string;
+  vestimenta: {
+    parte_superior: {
+      tipo: string;
       color: string;
-      pattern: string;
-      has_logo: boolean;
-      logo_text: string;
-      sleeve_length: string;
+      patron: string;
+      tiene_logo: boolean;
+      texto_logo: string;
+      longitud_manga: string;
       material: string;
     };
     
-    bottom: {
-      type: string;
+    parte_inferior: {
+      tipo: string;
       color: string;
-      pattern: string;
-      length: string;
-      has_belt: boolean;
+      patron: string;
+      longitud: string;
+      tiene_cinturon: boolean;
       material: string;
     };
     
-    shoes: {
-      type: string;
+    zapatos: {
+      tipo: string;
       color: string;
-      brand: string;
-      has_laces: boolean;
-      lace_color: string;
+      marca: string;
+      tiene_cordones: boolean;
+      color_cordones: string;
     };
     
-    underwear: {
+    ropa_interior: {
       visible: boolean;
       color: string;
-      type: string;
+      tipo: string;
     };
   };
 
   // Accesorios
-  accessories: {
-    head_accessories: {
-      hat: {
-        has_hat: boolean;
-        type: string | null;
+  accesorios: {
+    accesorios_cabeza: {
+      sombrero: {
+        tiene_sombrero: boolean;
+        tipo: string | null;
         color: string | null;
-        has_logo: boolean;
+        tiene_logo: boolean;
       };
       
-      glasses: {
-        has_glasses: boolean;
-        type: string | null;
+      lentes: {
+        tiene_lentes: boolean;
+        tipo: string | null;
         color: string | null;
-        prescription: boolean;
+        con_receta: boolean;
       };
       
-      earrings: {
-        has_earrings: boolean;
-        type: string | null;
-        count: number;
+      aretes: {
+        tiene_aretes: boolean;
+        tipo: string | null;
+        cantidad: number;
       };
     };
     
-    body_accessories: {
-      necklace: {
-        has_necklace: boolean;
-        type: string | null;
+    accesorios_cuerpo: {
+      collar: {
+        tiene_collar: boolean;
+        tipo: string | null;
         material: string | null;
       };
       
-      watch: {
-        has_watch: boolean;
-        type: string | null;
+      reloj: {
+        tiene_reloj: boolean;
+        tipo: string | null;
         color: string | null;
       };
       
-      bracelet: {
-        has_bracelet: boolean;
-        type: string | null;
-        count: number;
+      pulsera: {
+        tiene_pulsera: boolean;
+        tipo: string | null;
+        cantidad: number;
       };
     };
     
-    waist_accessories: {
-      belt: {
-        has_belt: boolean;
+    accesorios_cintura: {
+      cinturon: {
+        tiene_cinturon: boolean;
         color: string | null;
         material: string | null;
-        buckle_type: string | null;
+        tipo_hebilla: string | null;
       };
     };
     
-    carried_items: string[];
+    objetos_que_lleva: string[];
   };
 
   // Configuraciones especiales
-  special_features: {
-    is_superhero: boolean;
-    superhero_name: string | null;
-    has_powers: boolean;
-    powers_list: string[];
-    is_alien: boolean;
-    is_robot: boolean;
-    transparency_level: number;
+  caracteristicas_especiales: {
+    es_superheroe: boolean;
+    nombre_superheroe: string | null;
+    tiene_poderes: boolean;
+    lista_poderes: string[];
+    es_alienigena: boolean;
+    es_robot: boolean;
+    nivel_transparencia: number;
   };
 
   // Estadísticas del juego
-  game_stats: {
-    level: number;
-    experience_points: number;
-    health: number;
-    energy: number;
-    happiness: number;
-    popularity: number;
-    unlocked_features: string[];
-    achievements: string[];
+  estadisticas_juego: {
+    nivel: number;
+    puntos_experiencia: number;
+    salud: number;
+    energia: number;
+    felicidad: number;
+    popularidad: number;
+    caracteristicas_desbloqueadas: string[];
+    logros: string[];
   };
 }
