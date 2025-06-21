@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { CharacterData } from '../types/character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,11 +12,11 @@ import { Slider } from '@/components/ui/slider';
 interface CharacterControlsProps {
   characterData: CharacterData;
   setCharacterData: (data: CharacterData) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-const CharacterControls = ({ characterData, setCharacterData }: CharacterControlsProps) => {
-  const [activeTab, setActiveTab] = useState('basico');
-
+const CharacterControls = ({ characterData, setCharacterData, activeTab, setActiveTab }: CharacterControlsProps) => {
   const updateCharacter = (path: string, value: any) => {
     const newData = { ...characterData };
     const keys = path.split('.');
