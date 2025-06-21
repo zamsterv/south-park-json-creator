@@ -13,13 +13,22 @@ interface JsonPanelProps {
 const JsonPanel = ({ characterData }: JsonPanelProps) => {
   const [isFormatted, setIsFormatted] = useState(true);
   const [showTypes, setShowTypes] = useState(true);
-  const [activeTab, setActiveTab] = useState('apariencia');
+  const [activeTab, setActiveTab] = useState('basico');
   const { toast } = useToast();
 
   const getJsonSection = (section: string) => {
     let sectionData;
     
     switch(section) {
+      case 'basico':
+        sectionData = {
+          id: characterData.id,
+          nombre: characterData.nombre,
+          fecha_creacion: characterData.fecha_creacion,
+          version: characterData.version,
+          informacion_personal: characterData.informacion_personal
+        };
+        break;
       case 'apariencia':
         sectionData = {
           apariencia: characterData.apariencia
@@ -125,7 +134,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
               size="sm"
               variant="secondary"
               onClick={() => setShowTypes(!showTypes)}
-              className="text-xs"
+              className="text-xs text-black bg-white hover:bg-gray-100"
             >
               {showTypes ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               Tipos
@@ -134,7 +143,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
               size="sm"
               variant="secondary"
               onClick={copyToClipboard}
-              className="text-xs"
+              className="text-xs text-black bg-white hover:bg-gray-100"
             >
               <Copy className="w-4 h-4" />
             </Button>
@@ -142,7 +151,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
               size="sm"
               variant="secondary"
               onClick={downloadJson}
-              className="text-xs"
+              className="text-xs text-black bg-white hover:bg-gray-100"
             >
               <Download className="w-4 h-4" />
             </Button>
@@ -154,7 +163,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
             size="sm"
             variant={isFormatted ? "default" : "outline"}
             onClick={() => setIsFormatted(true)}
-            className="text-xs"
+            className={`text-xs ${isFormatted ? 'bg-white text-black hover:bg-gray-100' : 'bg-transparent text-white border-white hover:bg-white hover:text-black'}`}
           >
             Formateado
           </Button>
@@ -162,7 +171,7 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
             size="sm"
             variant={!isFormatted ? "default" : "outline"}
             onClick={() => setIsFormatted(false)}
-            className="text-xs"
+            className={`text-xs ${!isFormatted ? 'bg-white text-black hover:bg-gray-100' : 'bg-transparent text-white border-white hover:bg-white hover:text-black'}`}
           >
             Comprimido
           </Button>
@@ -171,13 +180,26 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-        <TabsList className="grid w-full grid-cols-5 bg-blue-500">
-          <TabsTrigger value="apariencia" className="text-xs">👤 Apariencia</TabsTrigger>
-          <TabsTrigger value="vestimenta" className="text-xs">👕 Vestimenta</TabsTrigger>
-          <TabsTrigger value="accesorios" className="text-xs">💍 Accesorios</TabsTrigger>
-          <TabsTrigger value="especial" className="text-xs">⭐ Especial</TabsTrigger>
-          <TabsTrigger value="resumen" className="text-xs">📋 Resumen</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-6 bg-blue-500">
+          <TabsTrigger value="basico" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">📋 Básico</TabsTrigger>
+          <TabsTrigger value="apariencia" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">👤 Apariencia</TabsTrigger>
+          <TabsTrigger value="vestimenta" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">👕 Vestimenta</TabsTrigger>
+          <TabsTrigger value="accesorios" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">💍 Accesorios</TabsTrigger>
+          <TabsTrigger value="especial" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">⭐ Especial</TabsTrigger>
+          <TabsTrigger value="resumen" className="text-xs text-white data-[state=active]:bg-blue-300 data-[state=active]:text-black">📄 Resumen</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="basico" className="flex-1 m-0">
+          <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
+            <div className="bg-gray-800 rounded p-4 h-full overflow-auto">
+              <pre className="text-sm font-mono leading-relaxed">
+                {showTypes && isFormatted ? getJsonWithTypes() : (
+                  <code className="text-gray-300">{jsonString}</code>
+                )}
+              </pre>
+            </div>
+          </div>
+        </TabsContent>
 
         <TabsContent value="apariencia" className="flex-1 m-0">
           <div className="json-panel p-4 overflow-auto h-full rounded-b-xl">
