@@ -152,38 +152,6 @@ const JsonPanel = ({ characterData }: JsonPanelProps) => {
       </div>
     </div>
   );
-
-  function getJsonWithTypes() {
-    const lines = jsonString.split('\n');
-    return lines.map((line, index) => {
-      let typeIndicator = '';
-      
-      if (line.includes(': "') && !line.includes('": "')) {
-        typeIndicator = ' // String 📝';
-      } else if (line.includes(': ') && /: \d+[,\s]*$/.test(line)) {
-        typeIndicator = ' // Number 🔢';
-      } else if (line.includes(': true') || line.includes(': false')) {
-        typeIndicator = ' // Boolean ✅';
-      } else if (line.includes(': null')) {
-        typeIndicator = ' // Null ❌';
-      } else if (line.includes('[')) {
-        typeIndicator = ' // Array 📋';
-      } else if (line.includes('{') && !line.includes('":')) {
-        typeIndicator = ' // Object 🏗️';
-      }
-
-      return (
-        <div key={index} className="flex">
-          <span className="text-gray-300">{line}</span>
-          {showTypes && typeIndicator && (
-            <span className="text-green-400 text-xs ml-2 opacity-75">
-              {typeIndicator}
-            </span>
-          )}
-        </div>
-      );
-    });
-  }
 };
 
 export default JsonPanel;
