@@ -1,3 +1,5 @@
+
+import React, { useState } from 'react';
 import { CharacterData } from '../types/character';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,18 +19,16 @@ const CharacterControls = ({ characterData, setCharacterData }: CharacterControl
   const [activeTab, setActiveTab] = useState('basico');
 
   const updateCharacter = (path: string, value: any) => {
-    setCharacterData(prev => {
-      const newData = { ...prev };
-      const keys = path.split('.');
-      let current: any = newData;
-      
-      for (let i = 0; i < keys.length - 1; i++) {
-        current = current[keys[i]];
-      }
-      
-      current[keys[keys.length - 1]] = value;
-      return newData;
-    });
+    const newData = { ...characterData };
+    const keys = path.split('.');
+    let current: any = newData;
+    
+    for (let i = 0; i < keys.length - 1; i++) {
+      current = current[keys[i]];
+    }
+    
+    current[keys[keys.length - 1]] = value;
+    setCharacterData(newData);
   };
 
   const addToArray = (path: string, value: any) => {
